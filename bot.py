@@ -5,7 +5,7 @@ intents = discord.Intents.default()
 # Włączanie uprawnienia do czytania wiadomości
 intents.message_content = True
 bot = commands.Bot(command_prefix='/',intents=intents)
-token = "MTE5ODI0MjM5OTQwMzY1NTI0OA.GK7tVA.GJNhTRb5ayWmnRDSY0PRriA2lsmIKPf4Pt5XYM"
+token = "YOUR TOKEN HERE"
 
 @bot.event
 async def on_ready():
@@ -24,5 +24,27 @@ async def hello(interaction: discord.Interaction):
 @app_commands.describe(thingtosay = "What should I say?")
 async def say(interaction: discord.Interaction, thingtosay: str):
     await interaction.response.send_message(f"{interaction.user.name} said: {thingtosay}")
+
+@bot.tree.command(name='heh')
+@app_commands.describe(number = "How many times?")
+async def heh(interaction: discord.Interaction, num: int):
+    await interaction.response.send_message(f'he' * num)
+
+@bot.tree.command(name='bye')
+async def bye(interaction: discord.Interaction):
+    await interaction.response.send_message(f"Bye, {interaction.user.mention}!")
+
+@bot.tree.command(name='gen_pass')
+@app_commands.describe(length = "How long password?")
+async def passgen(interaction: discord.Interaction, length: int):
+    await interaction.response.send_message(gen_pass(length))
+
+@bot.tree.command(name='smile')
+async def smile(interaction: discord.Interaction):
+    await interaction.response.send_message(gen_emoji())
+
+@bot.tree.command(name='coinflip')
+async def coinflip(interaction: discord.Interaction):
+    await interaction.response.send_message(flip_coin())
 
 bot.run(token)
